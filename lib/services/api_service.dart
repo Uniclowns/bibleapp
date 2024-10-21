@@ -30,8 +30,13 @@ class ApiService {
     );
 
     if (response.statusCode == 200) {
-      List<dynamic> jsonResponse = json.decode(response.body);
-      return jsonResponse.map((data) => Verse.fromJson(data)).toList();
+      // Ubah menjadi Map jika hasil dari API adalah objek
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+
+      // Akses list dari map, sesuaikan dengan struktur respons yang tepat
+      List<dynamic> versesList = jsonResponse['verses'];
+
+      return versesList.map((data) => Verse.fromJson(data)).toList();
     } else {
       throw Exception('Failed to search verses');
     }
