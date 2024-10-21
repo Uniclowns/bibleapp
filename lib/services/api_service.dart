@@ -19,9 +19,14 @@ class ApiService {
 
   Future<List<Verse>> searchVerses(String keyword) async {
     final response = await http.post(
-      Uri.parse('$baseUrl/verses/$keyword'),
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({'q': keyword}),
+      Uri.parse('$baseUrl/verses/search'),
+      headers: {'Content-Type': 'application/json;charset=utf-8'},
+      body: jsonEncode(
+        {
+          'version': 'kjv',
+          'search': keyword,
+        },
+      ),
     );
 
     if (response.statusCode == 200) {
